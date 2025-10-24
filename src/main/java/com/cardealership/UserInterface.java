@@ -168,7 +168,39 @@ public class UserInterface {
     }
 
     private void processRemoveVehicleRequest(Scanner scnr) {
-        System.out.println("Remove vehicle");
+        Vehicle foundVehicle = null;
+        int vehicleId = 0;
+
+        //get id
+        boolean isValid = false;
+        while (!isValid) {
+            try {
+                System.out.print("\nEnter unique 5-digit vehicle ID: ");
+                vehicleId = Integer.parseInt(scnr.nextLine().trim());
+
+                if (vehicleId < 10000 || vehicleId > 99999) {
+                    System.out.println("Vehicle ID must be a 5-digit number.");
+                }
+                else {
+                    isValid = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Vehicle ID must be numeric.");
+            }
+        }
+
+        for (Vehicle v : dealership.getAllVehicles()) {
+            if (v.getVehicleId() == vehicleId) {
+                foundVehicle = v;
+                break;
+            }
+        }
+
+        if (foundVehicle != null) {
+            dealership.removeVehicle(foundVehicle);
+        } else {
+            System.out.println("Vehicle not found.");
+        }
     }
 
     private void processGetAllVehiclesRequest() {

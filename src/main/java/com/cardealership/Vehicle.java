@@ -1,6 +1,4 @@
-package com.cardealership;// import java.math.BigDecimal; implement for price if have time
-
-import java.time.format.DateTimeFormatter;
+package com.cardealership;
 
 public class Vehicle {
     private int vehicleId;
@@ -91,7 +89,7 @@ public class Vehicle {
         this.price = price;
     }
 
-    // *** Other ***
+    // *** toString() Methods ***
 
     @Override
     public String toString() {
