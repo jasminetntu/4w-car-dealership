@@ -1,6 +1,7 @@
 package com.cardealership;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Dealership {
@@ -34,6 +35,7 @@ public class Dealership {
         return inventory.stream()
                 .filter(v -> v.getPrice() >= minPrice)
                 .filter(v -> v.getPrice() <= maxPrice)
+                .sorted(Comparator.comparing(Vehicle::getPrice))
                 .toList();
     }
 
@@ -41,6 +43,7 @@ public class Dealership {
         return inventory.stream()
                 .filter(v -> v.getMake().toLowerCase().contains(makeToSearch.toLowerCase()))
                 .filter(v -> v.getModel().toLowerCase().contains(modelToSearch.toLowerCase()))
+                .sorted(Comparator.comparing(Vehicle::getVehicleId))
                 .toList();
     }
 
@@ -48,12 +51,14 @@ public class Dealership {
         return inventory.stream()
                 .filter(v -> v.getYear() >= minYear)
                 .filter(v -> v.getYear() <= maxYear)
+                .sorted(Comparator.comparing(Vehicle::getYear))
                 .toList();
     }
 
     public List<Vehicle> getVehiclesByColor(String colorToSearch) {
         return inventory.stream()
                 .filter(v -> v.getColor().toLowerCase().contains(colorToSearch.toLowerCase()))
+                .sorted(Comparator.comparing(Vehicle::getVehicleId))
                 .toList();
     }
 
@@ -61,17 +66,21 @@ public class Dealership {
         return inventory.stream()
                 .filter(v -> v.getOdometerReading() >= minMiles)
                 .filter(v -> v.getOdometerReading() <= maxMiles)
+                .sorted(Comparator.comparing(Vehicle::getOdometerReading))
                 .toList();
     }
 
     public List<Vehicle> getVehiclesByType(String typeToSearch) {
         return inventory.stream()
                 .filter(v -> v.getVehicleType().toLowerCase().contains(typeToSearch.toLowerCase()))
+                .sorted(Comparator.comparing(Vehicle::getVehicleId))
                 .toList();
     }
 
     public List<Vehicle> getAllVehicles() {
-        return inventory;
+        return inventory.stream()
+                .sorted(Comparator.comparing(Vehicle::getVehicleId))
+                .toList();
     }
 
     // *** Setters ***
