@@ -47,7 +47,9 @@ public class UserInterface {
     // *** General Processing Methods ***
 
     public void processAddVehicleRequest(Scanner scnr) {
-        System.out.println("Add vehicle");
+        System.out.print("Enter year: ");
+
+        //vehicleId, year, make, model, vehicleType, color, odometerReading, price
     }
 
     public void processRemoveVehicleRequest(Scanner scnr) {
@@ -137,7 +139,7 @@ public class UserInterface {
             }
         }
 
-        System.out.printf("\n🛞 Getting %s %s...", make, model);
+        System.out.printf("\n🛞 Getting %s %s...\n", make, model);
         displayVehicles(dealership.getVehiclesByMakeModel(make,model));
     }
 
@@ -181,7 +183,7 @@ public class UserInterface {
             }
         }
 
-        System.out.printf("\n🛞 Getting vehicles between %d - %d...", minYear, maxYear);
+        System.out.printf("\n🛞 Getting vehicles between %d - %d...\n", minYear, maxYear);
         displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
     }
 
@@ -202,7 +204,7 @@ public class UserInterface {
             }
         }
 
-        System.out.printf("\n🛞 Getting %s vehicles...", color.toLowerCase());
+        System.out.printf("\n🛞 Getting %s vehicles...\n", color.toLowerCase());
         displayVehicles(dealership.getVehiclesByColor(color));
     }
 
@@ -246,8 +248,8 @@ public class UserInterface {
             }
         }
 
-        System.out.printf("\n🛞 Getting vehicles with mileage between %d - %d...", minMiles, maxMiles);
-        displayVehicles(dealership.getVehiclesByMileage(0,0));
+        System.out.printf("\n🛞 Getting vehicles with mileage between %d - %d...\n", minMiles, maxMiles);
+        displayVehicles(dealership.getVehiclesByMileage(minMiles, maxMiles));
     }
 
     public void processGetByVehicleTypeRequest(Scanner scnr) {
@@ -267,8 +269,8 @@ public class UserInterface {
             }
         }
 
-        System.out.printf("\n🛞 Getting %s's...", type);
-        displayVehicles(dealership.getVehiclesByType(""));
+        System.out.printf("\n🛞 Getting %s's...\n", type);
+        displayVehicles(dealership.getVehiclesByType(type));
     }
 
     // *** Helper Methods ***
@@ -307,7 +309,7 @@ public class UserInterface {
                     [9] View by Vehicle Type
                 
                     [X] Exit
-                Enter your choice (1-9, X):\s""");
+                > Enter your choice (1-9, X):\s""");
     }
 
     private void displayVehicles(List<Vehicle> vehicleList) {

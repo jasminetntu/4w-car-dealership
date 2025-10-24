@@ -31,27 +31,43 @@ public class Dealership {
     }
 
     public List<Vehicle> getVehiclesByPrice(double minPrice, double maxPrice) {
-        return null;
+        return inventory.stream()
+                .filter(v -> v.getPrice() >= minPrice)
+                .filter(v -> v.getPrice() <= maxPrice)
+                .toList();
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String makeToSearch, String modelToSearch) {
-        return null;
+        return inventory.stream()
+                .filter(v -> v.getMake().toLowerCase().contains(makeToSearch.toLowerCase()))
+                .filter(v -> v.getModel().toLowerCase().contains(modelToSearch.toLowerCase()))
+                .toList();
     }
 
     public List<Vehicle> getVehiclesByYear(int minYear, int maxYear) {
-        return null;
+        return inventory.stream()
+                .filter(v -> v.getYear() >= minYear)
+                .filter(v -> v.getYear() <= maxYear)
+                .toList();
     }
 
     public List<Vehicle> getVehiclesByColor(String colorToSearch) {
-        return null;
+        return inventory.stream()
+                .filter(v -> v.getColor().toLowerCase().contains(colorToSearch.toLowerCase()))
+                .toList();
     }
 
     public List<Vehicle> getVehiclesByMileage(int minMiles, int maxMiles) {
-        return null;
+        return inventory.stream()
+                .filter(v -> v.getOdometerReading() >= minMiles)
+                .filter(v -> v.getOdometerReading() <= maxMiles)
+                .toList();
     }
 
     public List<Vehicle> getVehiclesByType(String typeToSearch) {
-        return null;
+        return inventory.stream()
+                .filter(v -> v.getVehicleType().toLowerCase().contains(typeToSearch.toLowerCase()))
+                .toList();
     }
 
     public List<Vehicle> getAllVehicles() {
