@@ -60,8 +60,11 @@ public class UserInterface {
                 System.out.print("\nEnter year of vehicle: ");
                 year = Integer.parseInt(scnr.nextLine().trim());
 
-                if (year < 0) {
-                    System.out.println("Year cannot be negative.");
+                if (year < 1900) {
+                    System.out.println("Year cannot be before 1900. Those are no longer in production.");
+                }
+                else if (year > 2025) {
+                    System.out.println("Year cannot be after 2025, the current year.");
                 }
                 else {
                     isValid = true;
@@ -448,19 +451,19 @@ public class UserInterface {
         System.out.print("""
                 
                 •·················•················•·················•
-                |          🛞 What would you like to do?             |
+                |          🚗 What would you like to do?             |
                 •·················•················•·················•
-                    [1] Add Vehicle
-                    [2] Remove Vehicle
-                    [3] View All Vehicles
-                    [4] View by Price
-                    [5] View by Make & Model
-                    [6] View by Year
-                    [7] View by Color
-                    [8] View by Mileage
-                    [9] View by Vehicle Type
+                    [1] ＋ Add Vehicle
+                    [2] － Remove Vehicle
+                    [3] 🚙 View All Vehicles
+                    [4] 💸 View by Price
+                    [5] ⚙️ View by Make & Model
+                    [6] 🗓️ View by Year
+                    [7] 🌈 View by Color
+                    [8] 🛞 View by Mileage
+                    [9] 🚌 View by Vehicle Type
                 
-                    [X] Exit
+                    [X] ❌ Exit
                 > Enter your choice (1-9, X):\s""");
     }
 
