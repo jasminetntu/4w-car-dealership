@@ -27,6 +27,8 @@ public class DealershipFileManager {
                     dealership.addVehicle(v);
                 }
             }
+
+            return dealership;
         }
         catch (IOException ignore) {} //ignore if file is empty
 
@@ -34,6 +36,17 @@ public class DealershipFileManager {
     }
 
     public void saveDealership(Dealership dealership) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            //write dealership info
+            bw.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone() + "\n");
 
+            //write vehicles
+            for (Vehicle v : dealership.getAllVehicles()) {
+                bw.write(v.toCsvString() + "\n");
+            }
+        }
+        catch (IOException e) {
+            System.out.println("ERROR: Something went wrong while saving to file.");
+        }
     }
 }

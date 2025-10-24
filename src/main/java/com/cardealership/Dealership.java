@@ -55,15 +55,15 @@ public class Dealership {
     }
 
     public List<Vehicle> getAllVehicles() {
-        return null;
+        return inventory;
     }
 
     // *** Setters ***
     public void addVehicle(Vehicle vehicleToAdd) {
-
+        inventory.add(vehicleToAdd);
     }
 
     public void removeVehicle(Vehicle vehicleToRemove) {
-
+        inventory.remove(vehicleToRemove);
     }
 }

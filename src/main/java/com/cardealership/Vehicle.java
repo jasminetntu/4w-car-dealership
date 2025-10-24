@@ -1,5 +1,7 @@
 package com.cardealership;// import java.math.BigDecimal; implement for price if have time
 
+import java.time.format.DateTimeFormatter;
+
 public class Vehicle {
     private int vehicleId;
     private int year;
@@ -87,5 +89,33 @@ public class Vehicle {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    // *** Other ***
+
+    @Override
+    public String toString() {
+        return String.format("""
+                ID: %d - %d %s %s
+                    > Type: %s
+                    > Color: %s
+                    > Mileage: %d
+                    > Price: $%.2f""",
+                vehicleId, year, make, model, vehicleType, color, odometerReading, price);
+    }
+
+    public String toTableString() {
+        return String.format(" %-7d  %-7d  %-13s  %-13s  %-13s %-10s %-10d %-12s",
+                vehicleId, year, make, model, vehicleType, color, odometerReading, "$" + String.format("%.2f", price));
+
+//        return String.format("%-11s  %-11s  %-35s  %-25s  %-10s",
+//                getDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")),
+//                getTime().format(DateTimeFormatter.ofPattern("hh:mm a")),
+//                description, vendor, formatAmount);
+    }
+
+    public String toCsvString() {
+        return String.format("%d|%d|%s|%s|%s|%s|%d|%.2f",
+                vehicleId, year, make, model, vehicleType, color, odometerReading, price);
     }
 }
