@@ -38,6 +38,7 @@ public class UserInterface {
                     System.out.println("\nGoodbye!");
                     scnr.close();
                     running = false;
+                    exit();
                 }
                 default -> System.out.println("Invalid choice. Try again.");
             }
@@ -46,24 +47,138 @@ public class UserInterface {
 
     // *** General Processing Methods ***
 
-    public void processAddVehicleRequest(Scanner scnr) {
-        System.out.print("Enter year: ");
+    private void processAddVehicleRequest(Scanner scnr) {
+        int vehicleId = getUniqueID(); //get random, unique 5-digit id
+        int year = 0, odometerReading = 0;
+        String make = "", model = "", type = "", color = "";
+        double price = 0.0;
+        boolean isValid = false;
 
-        //vehicleId, year, make, model, vehicleType, color, odometerReading, price
+        //get year
+        while (!isValid) {
+            try {
+                System.out.print("\nEnter year of vehicle: ");
+                year = Integer.parseInt(scnr.nextLine().trim());
+
+                if (year < 0) {
+                    System.out.println("Year cannot be negative.");
+                }
+                else {
+                    isValid = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Year must be numeric.");
+            }
+        }
+
+        //get make
+        isValid = false;
+        while (!isValid) {
+            System.out.print("Enter make: ");
+            make = scnr.nextLine().trim();
+
+            if (make.isEmpty()) {
+                System.out.println("Make cannot be empty.");
+            }
+            else {
+                isValid = true;
+            }
+        }
+
+        //get model
+        isValid = false;
+        while (!isValid) {
+            System.out.print("Enter model: ");
+            model = scnr.nextLine().trim();
+
+            if (model.isEmpty()) {
+                System.out.println("Model cannot be empty.");
+            }
+            else {
+                isValid = true;
+            }
+        }
+
+        //get type
+        isValid = false;
+        while (!isValid) {
+            System.out.print("Enter vehicle type: ");
+            type = scnr.nextLine().trim();
+
+            if (type.isEmpty()) {
+                System.out.println("Vehicle type cannot be empty.");
+            }
+            else {
+                isValid = true;
+            }
+        }
+
+        //get color
+        isValid = false;
+        while (!isValid) {
+            System.out.print("Enter color: ");
+            color = scnr.nextLine().trim();
+
+            if (color.isEmpty()) {
+                System.out.println("Color cannot be empty.");
+            }
+            else {
+                isValid = true;
+            }
+        }
+
+        //get mileage
+        isValid = false;
+        while (!isValid) {
+            try {
+                System.out.print("Enter current mileage: ");
+                odometerReading = Integer.parseInt(scnr.nextLine().trim());
+
+                if (odometerReading < 0) {
+                    System.out.println("Mileage cannot be negative.");
+                }
+                else {
+                    isValid = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Mileage must be numeric.");
+            }
+        }
+
+        //get price
+        isValid = false;
+        while (!isValid) {
+            try {
+                System.out.print("Enter price: ");
+                price = Double.parseDouble(scnr.nextLine().trim());
+
+                if (price < 0) {
+                    System.out.println("Price cannot be negative.");
+                }
+                else {
+                    isValid = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Price must be numeric.");
+            }
+        }
+
+        //add vehicle
+        dealership.addVehicle(new Vehicle(vehicleId, year, make, model, type, color, odometerReading, price));
     }
 
-    public void processRemoveVehicleRequest(Scanner scnr) {
+    private void processRemoveVehicleRequest(Scanner scnr) {
         System.out.println("Remove vehicle");
     }
 
-    public void processGetAllVehiclesRequest() {
+    private void processGetAllVehiclesRequest() {
         System.out.println("\n🛞 Getting all vehicles...");
         displayVehicles(dealership.getAllVehicles());
     }
 
     // *** Get By Processing Methods ***
 
-    public void processGetByPriceRequest(Scanner scnr) {
+    private void processGetByPriceRequest(Scanner scnr) {
         double minPrice = 0;
         double maxPrice = 0;
 
@@ -107,7 +222,7 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByPrice(minPrice, maxPrice));
     }
 
-    public void processGetByMakeModelRequest(Scanner scnr) {
+    private void processGetByMakeModelRequest(Scanner scnr) {
         String make = "";
         String model = "";
 
@@ -132,7 +247,7 @@ public class UserInterface {
             model = scnr.nextLine().trim();
 
             if (model.isEmpty()) {
-                System.out.println("model cannot be empty.");
+                System.out.println("Model cannot be empty.");
             }
             else {
                 isValid = true;
@@ -143,7 +258,7 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByMakeModel(make,model));
     }
 
-    public void processGetByYearRequest(Scanner scnr) {
+    private void processGetByYearRequest(Scanner scnr) {
         int minYear = 0;
         int maxYear = 0;
 
@@ -187,7 +302,7 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByYear(minYear, maxYear));
     }
 
-    public void processGetByColorRequest(Scanner scnr) {
+    private void processGetByColorRequest(Scanner scnr) {
         String color = "";
 
         //get color
@@ -208,7 +323,7 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByColor(color));
     }
 
-    public void processGetByMileageRequest(Scanner scnr) {
+    private void processGetByMileageRequest(Scanner scnr) {
         int minMiles = 0;
         int maxMiles = 0;
 
@@ -252,10 +367,10 @@ public class UserInterface {
         displayVehicles(dealership.getVehiclesByMileage(minMiles, maxMiles));
     }
 
-    public void processGetByVehicleTypeRequest(Scanner scnr) {
+    private void processGetByVehicleTypeRequest(Scanner scnr) {
         String type = "";
 
-        //get color
+        //get type
         boolean isValid = false;
         while (!isValid) {
             System.out.print("Enter vehicle type: ");
@@ -278,6 +393,11 @@ public class UserInterface {
     private void init() {
         DealershipFileManager dsm = new DealershipFileManager();
         dealership = dsm.getDealership();
+    }
+
+    private void exit() {
+        DealershipFileManager dsm = new DealershipFileManager();
+        dsm.saveDealership(dealership);
     }
 
     private void displayTitle() {
@@ -336,6 +456,24 @@ public class UserInterface {
 
         //print bottom sep + total vehicles
         System.out.println(separator + "\nTotal vehicles: " + vehicleList.size());
+    }
+
+    private int getUniqueID() {
+        final int SMALLEST_5_DIGIT_NUM = 10000;
+        final int BIGGEST_5_DIGIT_NUM = 99999;
+
+        int vehicleID = 0;
+        boolean isUnique = false;
+
+        while (!isUnique) {
+            vehicleID = (int) ((Math.random() * (BIGGEST_5_DIGIT_NUM - SMALLEST_5_DIGIT_NUM + 1) + SMALLEST_5_DIGIT_NUM));
+            int finalVehicleID = vehicleID;
+
+            isUnique = dealership.getAllVehicles().stream()
+                    .anyMatch(v -> v.getVehicleId() == finalVehicleID);
+        }
+
+        return vehicleID;
     }
 
 }
