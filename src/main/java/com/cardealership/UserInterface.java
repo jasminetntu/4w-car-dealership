@@ -201,6 +201,7 @@ public class UserInterface {
 
         if (foundVehicle != null) {
             dealership.removeVehicle(foundVehicle);
+            System.out.println("\nThe following vehicle has been removed:\n" + foundVehicle);
         } else {
             System.out.println("Vehicle not found.");
         }
@@ -505,7 +506,7 @@ public class UserInterface {
             int finalVehicleID = vehicleID;
 
             isUnique = dealership.getAllVehicles().stream()
-                    .anyMatch(v -> v.getVehicleId() == finalVehicleID);
+                    .noneMatch(v -> v.getVehicleId() == finalVehicleID);
         }
 
         return vehicleID;
