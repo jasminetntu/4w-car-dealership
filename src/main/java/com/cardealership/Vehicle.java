@@ -113,7 +113,8 @@ public class Vehicle {
     }
 
     public String toCsvString() {
-        return String.format("%d|%d|%s|%s|%s|%s|%d|%.2f",
+        return String.format("""
+                        "%d"|"%d"|"%s"|"%s"|"%s"|"%s"|"%d"|"%.2f\"""",
                 vehicleId, year, make, model, vehicleType, color, odometerReading, price);
     }
 }
