@@ -1,13 +1,14 @@
 package com.cardealership;
 
 public class SalesContract extends Contract {
+    private final double RECORDING_FEE = 100.00;
     private final double salesTaxAmount;
-    private final int processingFee;
-    private final boolean yesFinance; //finance = loan
+    private final double processingFee;
+    private final String financeOption; //finance = loan
 
     // *** Constructors ***
 
-    public SalesContract(String date, String name, String email, Vehicle vehicle, double totalPrice, boolean yesFinance) {
+    public SalesContract(String date, String name, String email, Vehicle vehicle, double totalPrice, boolean isFinance) {
         super(date, name, email, vehicle, totalPrice);
 
         this.setMonthlyPayment(getMonthlyPayment());
@@ -15,31 +16,39 @@ public class SalesContract extends Contract {
         this.salesTaxAmount = this.getVehicle().getPrice() * 0.05;
 
         if (this.getVehicle().getPrice() < 10000) {
-            this.processingFee = 295;
+            this.processingFee = 295.00;
         }
         else {
-            this.processingFee = 495;
+            this.processingFee = 495.00;
         }
 
-        this.yesFinance = yesFinance;
+        if (isFinance) {
+            this.financeOption = "YES";
+        }
+        else {
+            this.financeOption = "NO";
+        }
     }
 
     // *** Getters ***
+    public double getRECORDING_FEE() {
+        return RECORDING_FEE;
+    }
+
     public double getSalesTaxAmount() {
         return salesTaxAmount;
     }
 
-    public int getProcessingFee() {
+    public double getProcessingFee() {
         return processingFee;
     }
 
-    public boolean isYesFinance() {
-        return yesFinance;
+    public String isFinance() {
+        return financeOption;
     }
 
     @Override
     public double getTotalPrice() {
-        final double RECORDING_FEE = 100.00;
         return salesTaxAmount + RECORDING_FEE + processingFee;
     }
 
@@ -47,7 +56,7 @@ public class SalesContract extends Contract {
     public double getMonthlyPayment() {
         double monthlyPay;
 
-        if (!yesFinance) {
+        if (this.financeOption.equals("NO")) {
             monthlyPay = 0; //no loan -> pay in full upfront
         }
         else { //yes loan
