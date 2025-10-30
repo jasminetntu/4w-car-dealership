@@ -8,10 +8,8 @@ public class SalesContract extends Contract {
 
     // *** Constructors ***
 
-    public SalesContract(String date, String name, String email, Vehicle vehicle, double totalPrice, boolean isFinance) {
-        super(date, name, email, vehicle, totalPrice);
-
-        this.setMonthlyPayment(getMonthlyPayment());
+    public SalesContract(String date, String name, String email, Vehicle vehicle, String financeOption) {
+        super(date, name, email, vehicle);
 
         this.salesTaxAmount = this.getVehicle().getPrice() * 0.05;
 
@@ -22,12 +20,10 @@ public class SalesContract extends Contract {
             this.processingFee = 495.00;
         }
 
-        if (isFinance) {
-            this.financeOption = "YES";
-        }
-        else {
-            this.financeOption = "NO";
-        }
+        this.financeOption = financeOption;
+
+        this.setTotalPrice(getTotalPrice());
+        this.setMonthlyPayment(getMonthlyPayment());
     }
 
     // *** Getters ***

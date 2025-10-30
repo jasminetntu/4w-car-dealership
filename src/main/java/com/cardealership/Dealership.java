@@ -31,6 +31,19 @@ public class Dealership {
         return phone;
     }
 
+    public Vehicle findVehicle(int vehicleId) {
+        Vehicle foundVehicle = null;
+
+        for (Vehicle v : inventory) {
+            if (v.getVehicleId() == vehicleId) {
+                foundVehicle = v;
+                break;
+            }
+        }
+
+        return foundVehicle;
+    }
+
     public List<Vehicle> getVehiclesByPrice(double minPrice, double maxPrice) {
         return inventory.stream()
                 .filter(v -> v.getPrice() >= minPrice)
