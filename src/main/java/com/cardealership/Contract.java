@@ -18,13 +18,13 @@ public abstract class Contract {
         this.monthlyPayment = 0;
     }
 
-    public Contract(String date, String name, String email, Vehicle vehicle, double totalPrice, double monthlyPayment) {
+    public Contract(String date, String name, String email, Vehicle vehicle, double totalPrice) {
         this.date = date;
         this.name = name;
         this.email = email;
         this.vehicle = vehicle;
         this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
+        this.monthlyPayment = 0;
     }
 
     // *** Getters ***
@@ -61,6 +61,10 @@ public abstract class Contract {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public void setMonthlyPayment(double monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
     }
 
     // *** Abstract Methods ***
